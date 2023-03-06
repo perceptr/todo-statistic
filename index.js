@@ -84,11 +84,13 @@ function sortBy(argument) {
     const info = getInfoAboutTodos();
     switch (argument) {
         case 'importance':
-            return sortByImportance(info)
+            return sortByImportance(info);
             break
         case 'user':
+            return sortByUser();
             break
         case 'date':
+            return sortByDate();
             break
         default:
             return 'wrong_argument';
