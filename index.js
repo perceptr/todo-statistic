@@ -98,6 +98,17 @@ function sortBy(argument) {
     }
 }
 
+function getTodosAfterSpecificDate(date) {
+    let todos = getInfoAboutTodos();
+    let todosAfterDate = [];
+    for (const [todo, info] of todos.entries()) {
+        if (info.date > date) {
+            todosAfterDate.push(todo);
+        }
+    }
+    return todosAfterDate;
+}
+
 function processArguments(command) {
     const splitted = command.split(" ");
     const command_name = splitted[0];
@@ -116,8 +127,10 @@ function processCommand(command) {
         console.log(showOnlyImportantTodos())
     } else if (commandName == 'sort' && arguments.length == 1) {
         console.log(sortBy(arguments[0]))
-    } else if (command_name == 'user' && arguments.length == 1) {
+    } else if (commandName == 'user' && arguments.length == 1) {
         console.log(shotTodosByUser(arguments[0]))
+    } else if (commandName == 'date' && arguments.length == 1){
+        console.log(getTodosAfterSpecificDate(arguments[0]))
     } else {
         console.log('wrong command');
     }
