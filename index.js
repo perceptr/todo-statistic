@@ -2,10 +2,8 @@ const {getAllFilePathsWithExtension, readFile} = require('./fileSystem');
 const {readLine} = require('./console');
 
 const files = getFiles();
-console.log(getAllToDos())
-
 console.log('Please, write your command!');
-
+readLine(processCommand)
 function getFiles() {
     const filePaths = getAllFilePathsWithExtension(process.cwd(), 'js');
     return filePaths.map(path => readFile(path));
@@ -26,7 +24,7 @@ function getAllToDos() {
 
 function showOnlyImportantTodos() {
     let importantTodos = [];
-    let allTodos = getAllTodos();
+    let allTodos = getAllToDos();
     for (const todo of allTodos) {
         if (todo.includes('!')) {
             importantTodos.push(todo);
@@ -42,11 +40,12 @@ function processCommand(command) {
         case 'exit':
             process.exit(0);
             break;
-
         case 'show':
-            // show all todos
+            console.log(getAllToDos())
+            break;
         case 'important':
-            // show important todos that start with '!'
+            console.log(showOnlyImportantTodos())
+            break;
         default:
             console.log('wrong command');
             break;
