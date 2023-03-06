@@ -35,6 +35,29 @@ function showOnlyImportantTodos() {
     return importantTodos;
 }
 
+function shotTodosByUser(user) {
+    let todos = getInfoAboutTodos();
+    let users = [];
+    for (const [todo, info] of todos.entries()) {
+        if (info.name === user) {
+            users.push(todo);
+        }
+    }
+    return users;
+}
+
+function sortByUser() {
+    let todos = getInfoAboutTodos();
+    let sortedTodos = new Map([...todos.entries()].sort((a, b) => a[1].name > b[1].name ? 1 : -1));
+    return sortedTodos.keys();
+}
+
+function sortByDate() {
+    let todos = getInfoAboutTodos();
+    let sortedTodos = new Map([...todos.entries()].sort((a, b) => a[1].date > b[1].date ? 1 : -1));
+    return sortedTodos.keys();
+}
+
 // function sort_by_importance(infoAboutTodos) {
 //     let normalTodos = [];
 //     let importantTodos = [];
@@ -74,6 +97,9 @@ function processCommand(command) {
         console.log(getAllToDos())
     } else if (command_name == 'important' && arguments.length == 0) {
         console.log(showOnlyImportantTodos())
+    } else if (command_name == 'user' && arguments.length == 1) {
+        console.log(shotTodosByUser(arguments[0]))
+    }
     } else {
         console.log('wrong command');
         
