@@ -35,6 +35,48 @@ function showOnlyImportantTodos() {
     return importantTodos;
 }
 
+// function sort_by_importance(infoAboutTodos) {
+//     let normalTodos = [];
+//     let importantTodos = [];
+//     for (const [todo, info] of infoAboutTodos.entries()) {
+//         if (info.isImportant) {
+//
+//         }
+//     }
+// }
+
+function sort_by(argument) {
+    const info = getInfoAboutTodos();
+    switch (argument) {
+        case 'importance':
+            return sort_by_importance(info)
+            break
+        case 'user':
+            break
+        case 'date':
+            break
+    }
+}
+
+function processArguments(command) {
+    const splitted = command.split(" ");
+    const command_name = splitted[0];
+    const arguments = splitted.slice(1);
+
+    return [command_name, arguments]
+}
+
+function processCommand(command) {
+    const [command_name, arguments] = processArguments(command)
+    if (command_name == 'exit' && arguments.length == 0) {
+        process.exit(0);
+    } else if (command_name == 'show' && arguments.length == 0) {
+        console.log(getAllToDos())
+    } else if (command_name == 'important' && arguments.length == 0) {
+        console.log(showOnlyImportantTodos())
+    } else {
+        console.log('wrong command');
+        
 function getInfoAboutTodos() {
     let allTodos = getAllToDos();
     let todoMap = new Map();
@@ -55,25 +97,4 @@ function getInfoAboutTodos() {
     }
 
     return todoMap;
-}
-
-
-function processCommand(command) {
-    switch (command) {
-        case 'exit':
-            process.exit(0);
-            break;
-        case 'show':
-            console.log(getAllToDos())
-            break;
-        case 'important':
-            console.log(showOnlyImportantTodos())
-            break;
-        case 'user':
-            console.log(getInfoAboutTodos())
-            break;
-        default:
-            console.log('wrong command');
-            break;
-    }
 }
