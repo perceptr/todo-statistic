@@ -4,6 +4,7 @@ const {readLine} = require('./console');
 const files = getFiles();
 console.log('Please, write your command!');
 readLine(processCommand)
+
 function getFiles() {
     const filePaths = getAllFilePathsWithExtension(process.cwd(), 'js');
     return filePaths.map(path => readFile(path));
@@ -75,7 +76,25 @@ function processCommand(command) {
         console.log(showOnlyImportantTodos())
     } else {
         console.log('wrong command');
-    }
-}
+        
+function getInfoAboutTodos() {
+    let allTodos = getAllToDos();
+    let todoMap = new Map();
 
-// TODO you can do it!
+    for (const todo of allTodos) {
+        const name = todo.split(';')[0].slice(8);
+        const date = todo.split(';')[1];
+        const comment = todo.split(';')[2];
+
+        let todoInfo = {
+            name: name === '' ? null : name,
+            date: date === '' ? null : new Date(date),
+            comment: comment === '' ? null : comment,
+            isImportantTodo: todo.includes('!')
+        }
+
+        todoMap.set(todo, todoInfo);
+    }
+
+    return todoMap;
+}
