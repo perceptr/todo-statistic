@@ -34,6 +34,29 @@ function showOnlyImportantTodos() {
     return importantTodos;
 }
 
+// function sort_by_importance(infoAboutTodos) {
+//     let normalTodos = [];
+//     let importantTodos = [];
+//     for (const [todo, info] of infoAboutTodos.entries()) {
+//         if (info.isImportant) {
+//
+//         }
+//     }
+// }
+
+function sort_by(argument) {
+    const info = getInfoAboutTodos();
+    switch (argument) {
+        case 'importance':
+            return sort_by_importance(info)
+            break
+        case 'user':
+            break
+        case 'date':
+            break
+    }
+}
+
 function processArguments(command) {
     const splitted = command.split(" ");
     const command_name = splitted[0];
