@@ -47,6 +47,7 @@ function sortByImportance(infoAboutTodos) {
     }
     return [importantTodos, normalTodos]
 }
+
 function shotTodosByUser(user) {
     let todos = getInfoAboutTodos();
     let users = [];
@@ -70,16 +71,6 @@ function sortByDate() {
     return sortedTodos.keys();
 }
 
-// function sort_by_importance(infoAboutTodos) {
-//     let normalTodos = [];
-//     let importantTodos = [];
-//     for (const [todo, info] of infoAboutTodos.entries()) {
-//         if (info.isImportant) {
-//
-//         }
-//     }
-// }
-
 function sortBy(argument) {
     const info = getInfoAboutTodos();
     switch (argument) {
@@ -94,7 +85,7 @@ function sortBy(argument) {
             break
         default:
             return 'wrong_argument';
-        break
+            break
     }
 }
 
@@ -102,7 +93,7 @@ function getTodosAfterSpecificDate(date) {
     let todos = getInfoAboutTodos();
     let todosAfterDate = [];
     for (const [todo, info] of todos.entries()) {
-        if (info.date > date) {
+        if (info.date > new Date(date)) {
             todosAfterDate.push(todo);
         }
     }
@@ -129,31 +120,31 @@ function processCommand(command) {
         console.log(sortBy(arguments[0]))
     } else if (commandName == 'user' && arguments.length == 1) {
         console.log(shotTodosByUser(arguments[0]))
-    } else if (commandName == 'date' && arguments.length == 1){
+    } else if (commandName == 'date' && arguments.length == 1) {
         console.log(getTodosAfterSpecificDate(arguments[0]))
     } else {
         console.log('wrong command');
     }
 }
 
-        function getInfoAboutTodos() {
-            let allTodos = getAllToDos();
-            let todoMap = new Map();
+function getInfoAboutTodos() {
+    let allTodos = getAllToDos();
+    let todoMap = new Map();
 
-            for (const todo of allTodos) {
-                const name = todo.split(';')[0].slice(8);
-                const date = todo.split(';')[1];
-                const comment = todo.split(';')[2];
+    for (const todo of allTodos) {
+        const name = todo.split(';')[0].slice(8);
+        const date = todo.split(';')[1];
+        const comment = todo.split(';')[2];
 
-                let todoInfo = {
-                    name: name === '' ? null : name,
-                    date: date === '' ? null : new Date(date),
-                    comment: comment === '' ? null : comment,
-                    isImportantTodo: todo.includes('!')
-                }
-
-                todoMap.set(todo, todoInfo);
-            }
-
-            return todoMap;
+        let todoInfo = {
+            name: name === '' ? null : name,
+            date: date === '' ? null : new Date(date),
+            comment: comment === '' ? null : comment,
+            isImportantTodo: todo.includes('!')
         }
+
+        todoMap.set(todo, todoInfo);
+    }
+
+    return todoMap;
+}
